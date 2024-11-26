@@ -95,9 +95,12 @@ if (!empty($_SESSION['current_user'])) {
                 $('#sub_btn').html('Submit');
                 textObj = JSON.parse(text);
                 if(textObj.status) {
-                    location.href = 'welcome.php';
-                    // document.getElementById('results').innerHTML = 
-                    // '<img class="img-fluid" src="'+textObj.data.photo+'?var='+(new Date().getTime())+'"/>';
+                    if($('#save_data').val() == 1) {
+                        location.href = 'welcome.php';
+                    } else {
+                        document.getElementById('results').innerHTML = 
+                        '<img class="img-fluid" src="'+textObj.data.photo+'?var='+(new Date().getTime())+'"/>';
+                    }
                 }
                 alert(textObj.message);
             }, 'frs_form');
