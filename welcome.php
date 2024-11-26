@@ -29,12 +29,13 @@
         <div class="mt-5 row text-center">
             <?php
             if (!empty($_SESSION['current_user'])) {
+                $user = $_SESSION['current_user'];
             ?>
                 <div class="col-12">
-                    <img src="uploads/1234567822.jpg" class="img-thumbnail rounded-circle w-25">
+                    <img src="<?php echo $user['photo']; ?>" class="img-thumbnail rounded-circle w-25">
                 </div>
                 <div class="col-12">
-                    <h1 class="text-light">Welcome Naresh Kumar</h1>
+                    <h1 class="text-light">Welcome <?php echo $user['first_name'].(empty($user['last_name']) ? '' : ' '.$user['last_name']); ?></h1>
                 </div>
                 <div class="col-12">
                     <a href="?logout=1" class="btn btn-primary">Logout</a>
