@@ -66,13 +66,26 @@ body {
     color: #3498db;
   }
   
-  @media screen and (max-width: 600px) {
-    .login-container {
-      width: 90%;
-    }
-  }
-  
   #p-info {
     width: 400px;
     margin: 0 auto;
   }
+
+  .default-img {
+    height: 350px;
+  }  
+
+  @media screen and (max-width: 600px) {
+    .login-container {
+      width: 90%;
+    }
+
+    #p-info {
+      width: 100%;
+    }
+
+    .default-img {
+      height: 230px;
+    }
+  }
+  
