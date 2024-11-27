@@ -98,14 +98,25 @@ if (!empty($_SESSION['current_user'])) {
                 $('#sub_btn').html('Submit');
                 textObj = JSON.parse(text);
                 if (textObj.status) {
+                    $.toast({
+                        text: textObj.message,
+                        icon: 'success',
+                        position: 'top-right',
+                    });
                     if ($('#save_data').val() == 1) {
                         location.href = 'welcome.php';
                     } else {
                         document.getElementById('results').innerHTML =
                             '<img class="img-fluid" src="' + textObj.data.photo + '?var=' + (new Date().getTime()) + '"/>';
                     }
+                } else {
+                    $.toast({
+                        text: textObj.message,
+                        icon: 'error',
+                        position: 'top-right',
+                        hideAfter: 5000
+                    });
                 }
-                alert(textObj.message);
             }, 'frs_form');
         });
     }
