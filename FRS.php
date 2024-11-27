@@ -4,13 +4,16 @@ class FSR
     private $conn;
     private $apiKey = 'BApWjX5BdfPLhbJ8qjedm21jTOrbjMkt';
     private $apiSecret = 'x1n_nL7KuSzbmzhr5dg4QDSzfG33QQmT';
+    // private $tableName = 'redpeppers.frs_user';
+    private $tableName = 'frs_user';
     public function __construct() {
-        $connStr = "host=ec2-34-199-117-32.compute-1.amazonaws.com port=5432 dbname=metacafe-wallet user=metacafe password=5hdnWbgbtsmihKVqg590";
+        // $connStr = "host=ec2-34-199-117-32.compute-1.amazonaws.com port=5432 dbname=metacafe-wallet user=metacafe password=5hdnWbgbtsmihKVqg590";
+        $connStr = "host=localhost port=5432 dbname=metacafe-271 user=postgres password=passwd";
         $this->conn = pg_connect($connStr);
     }
 
     public function checkMobileExist($mobile) {
-        $checkMobileQuery = pg_query($this->conn, "select * from redpeppers.frs_user where mobile = $mobile");
+        $checkMobileQuery = pg_query($this->conn, "select * from $this->tableName where mobile = $mobile");
         $checkMobileResult = pg_fetch_all($checkMobileQuery);
         return !empty($checkMobileResult);
     }
@@ -83,7 +86,7 @@ class FSR
                 ];
             }
             $date = date('Y-m-d H:i:s');
-            $query = "INSERT INTO redpeppers.frs_user (first_name,last_name,mobile,email,photo,img_token,face_plus_detect_response,created_at) VALUES ('$request[first_name]', '$request[last_name]', '$request[mobile]', '$request[email]', '$photo', '$imgToken', '$faceResponse', '$date')";
+            $query = "INSERT INTO $this->tableName (first_name,last_name,mobile,email,photo,img_token,face_plus_detect_response,created_at) VALUES ('$request[first_name]', '$request[last_name]', '$request[mobile]', '$request[email]', '$photo', '$imgToken', '$faceResponse', '$date')";
             $insert = pg_query($this->conn, $query);
             if(empty($insert)) {
                 return [
@@ -119,7 +122,7 @@ class FSR
 
         if(!empty($request['save_data'])) {
             $mobile = $request['mobile'];
-            $savedImgTokenQuery = pg_query($this->conn, "select * from redpeppers.frs_user where mobile = $mobile");
+            $savedImgTokenQuery = pg_query($this->conn, "select * from $this->tableName where mobile = $mobile");
             $savedImgTokenResult = pg_fetch_assoc($savedImgTokenQuery);
             $savedImgToken = $savedImgTokenResult['img_token'] ?? null;
             if(empty($savedImgToken)) {
@@ -132,7 +135,7 @@ class FSR
             $compareFace = $this->compareFace($savedImgToken, $imgToken);
             $faceMatch = json_decode($compareFace);
             $confidence = $faceMatch->confidence ?? 'null';
-            $query = "UPDATE redpeppers.frs_user SET face_plus_compare_response = '$compareFace', last_compare_confidence = $confidence where mobile = '$mobile'";
+            $query = "UPDATE $this->tableName SET face_plus_compare_response = '$compareFace', last_compare_confidence = $confidence where mobile = '$mobile'";
             $update = pg_query($this->conn, $query);
             if(!empty($faceMatch->error_message)) {
                 return [
