@@ -4,7 +4,7 @@ $frs = new FSR;
 
 $request = $_REQUEST;
 $file = $_FILES['webcam'];
-if($frs->checkMobileExist($request['mobile'])) {
+if ($frs->checkMobileExist($request['mobile'])) {
     echo json_encode(
         [
             'status' => false,
@@ -15,4 +15,3 @@ if($frs->checkMobileExist($request['mobile'])) {
 }
 $register = $frs->register($request, $file);
 echo json_encode($register);
-?>
