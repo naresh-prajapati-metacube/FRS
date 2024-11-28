@@ -14,7 +14,7 @@ if (!empty($_GET['logout'])) {
             $user = $_SESSION['current_user'];
         ?>
             <div class="col-12">
-                <img src="<?php echo $user['photo']; ?>" class="img-thumbnail rounded-circle w-25">
+                <img src="<?php echo $user['photo']; ?>" class="img-thumbnail w-25">
             </div>
             <div class="col-12">
                 <h1 class="text-light">Welcome <?php echo $user['first_name'] . (empty($user['last_name']) ? '' : ' ' . $user['last_name']); ?></h1>

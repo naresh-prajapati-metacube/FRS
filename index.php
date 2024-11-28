@@ -55,15 +55,15 @@
                 <div id="photo-info" class="d-none">
                     <h5 class="text-left">Face Recognition</h5>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div id="my_camera" class="border"></div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-md-6">
                             <div id="results" class="border">
-                                <img src="images/defaul-img.jpg" class="w-100" style="height: 350px;">
+                                <img src="images/defaul-img.jpg" class="w-100 default-img">
                             </div>
                         </div>
-                        <div class="col-12 text-center">
+                        <div class="col-12 text-center mt-3">
                             <input type="hidden" name="save_data" id="save_data" value="1">
                             <button type="button" id="show_photo_btn" class="btn btn-secondary" onClick="show_photo()">Show Photo</button>
                             <button type="button" id="prev_btn" class="btn btn-primary" onclick="return previous_step()">Previous</button>
